@@ -22,17 +22,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SidebarProvider>
           <AppSidebar />
-          
+
           <SidebarTrigger />
           {children}
-         </SidebarProvider>
+        </SidebarProvider>
       </body>
     </html>
   );
 }
-
-   
