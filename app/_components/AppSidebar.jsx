@@ -10,8 +10,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import {
+  SignOutButton,
+  SignUpButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 import { Compass, GalleryHorizontalEnd, LogIn, Search } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const MenuOptions = [
@@ -33,12 +40,14 @@ const MenuOptions = [
   {
     title: "Sign In",
     icon: LogIn,
-    path: "#",
+    path: "/sign-in",
   },
 ];
 
 export function AppSidebar() {
   const path = usePathname();
+  const { user } = useUser();
+  console.log(user);
   return (
     <Sidebar>
       <SidebarHeader className="bg-accent flex items-center py-5">
@@ -53,22 +62,36 @@ export function AppSidebar() {
                 <SidebarMenuItem key={index}>
                   <SidebarMenuButton
                     asChild
-                    className={`p-5 hover:font-bold ${path?.includes(menu.path) && "font-bold"}`}
+                    className={`p-5 hover:font-bold ${
+                      path?.includes(menu.path) && "font-bold"
+                    }`}
                   >
-                    <a href={menu.path} className="flex items-center gap-2">
+                    <Link href={menu.path} className="flex items-center gap-2">
                       <menu.icon size={18} />
                       <span>{menu.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               );
             })}
           </SidebarMenu>
-          <Button className="rounded-full mx-4 mt-4">Sign Up</Button>
+          {!user ? (
+            <SignUpButton mode="modal">
+              <Button className="rounded-full mx-4 mt-4">Sign Up</Button>
+            </SignUpButton>
+          ) : (
+            <SignOutButton mode="modal">
+              <Button className="rounded-full mx-4 mt-4">Logout</Button>
+            </SignOutButton>
+          )}
         </SidebarContent>
         <SidebarGroup />
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter className="bg-accent">
+        <div className="p-3">
+          <UserButton />
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }
