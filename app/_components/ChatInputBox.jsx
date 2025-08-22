@@ -1,6 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Atom, AudioLines, Cpu, Globe, Mic, Paperclip, SearchCheck } from "lucide-react";
+import {
+  Atom,
+  AudioLines,
+  Cpu,
+  Globe,
+  Mic,
+  Paperclip,
+  SearchCheck,
+} from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import {
@@ -10,7 +18,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+import { AiModelsOption } from "@/services/Shared";
 
 const ChatInputBox = () => {
   return (
@@ -39,44 +48,51 @@ const ChatInputBox = () => {
 
           {/* Tab buttons (moved under input) */}
           <TabsList className="flex justify-center">
-            <TabsTrigger value="Search" className={'text-primary'}><SearchCheck />Search</TabsTrigger>
-            <TabsTrigger value="Research" className={'text-primary'}><Atom/>Research</TabsTrigger>
+            <TabsTrigger value="Search" className={"text-primary"}>
+              <SearchCheck />
+              Search
+            </TabsTrigger>
+            <TabsTrigger value="Research" className={"text-primary"}>
+              <Atom />
+              Research
+            </TabsTrigger>
           </TabsList>
         </Tabs>
         <div className="flex gap-4">
-            
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button variant="ghost">
+                <Cpu className="text-gray-500 h5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenuSeparator /> */}
 
-<DropdownMenu>
-  <DropdownMenuTrigger>
-    <Button variant='ghost'>
-            <Cpu className="text-gray-500 h5 w-5"/>
-            </Button>
-  </DropdownMenuTrigger>
-  <DropdownMenuContent>
-    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-    <DropdownMenuSeparator />
-    <DropdownMenuItem>Profile</DropdownMenuItem>
-    <DropdownMenuItem>Billing</DropdownMenuItem>
-    <DropdownMenuItem>Team</DropdownMenuItem>
-    <DropdownMenuItem>Subscription</DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
+              {AiModelsOption.map((model, index) => (
+                <DropdownMenuItem key={index}>
+                  <div className="mb-1">
+                    <h2 className="text-sm">{model.name}</h2>
+                    <p className="text-xs">{model.desc}</p>
+                  </div>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
+          <Button variant="ghost">
+            <Globe className="text-gray-500 h5 w-5" />
+          </Button>
+          <Button variant="ghost">
+            <Paperclip className="text-gray-500 h5 w-5" />
+          </Button>
+          <Button variant="ghost">
+            <Mic className="text-gray-500 h5 w-5" />
+          </Button>
 
-            <Button variant='ghost'>
-            <Globe  className="text-gray-500 h5 w-5"/>
-            </Button>
-            <Button variant='ghost'>
-            <Paperclip  className="text-gray-500 h5 w-5"/>
-            </Button>
-            <Button variant='ghost'>
-            <Mic className="text-gray-500 h5 w-5"/>
-            </Button>
-
-            <Button>
-                <AudioLines className="text-white h-5 w-5"/>
-
-            </Button>
+          <Button>
+            <AudioLines className="text-white h-5 w-5" />
+          </Button>
         </div>
       </div>
     </div>
